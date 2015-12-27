@@ -58,3 +58,5 @@ target/
 
 # bower folder
 bower_components
+
+db.sqlite3
