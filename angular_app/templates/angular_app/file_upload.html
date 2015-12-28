@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block custom_css %}
+    <link href="{% static 'jquery-ui/themes/base/jquery-ui.min.css' %}" rel="stylesheet">
+{#    <link href="{% static 'angular_app/file_upload.css' %}" rel="stylesheet">#}
+{% endblock custom_css %}
+
+{% block content %}
+    <div class="container" ng-app="myApp" ng-controller="MainCtrl">
+        File Upload:
+        <input id="testUpload"
+               type="file"
+               fileupload
+               name="files[]"
+               data-url=/server/uploadFile"
+               multiple
+               done="uploadFinished(e, data)">
+
+    </div>
+
+{% endblock content %}
+
+
+{% block custom_js %}
+    <script src="{% static 'jquery-ui/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'blueimp-file-upload/js/vendor/jquery.ui.widget.js' %}"></script>
+    <script src="{% static 'blueimp-file-upload/js/jquery.iframe-transport.js' %}"></script>
+    <script src="{% static 'blueimp-file-upload/js/jquery.fileupload.js' %}"></script>
+    <script src="{% static 'angular_app/myapp_directives.js' %}"></script>
+    <script src="{% static 'angular_app/file_upload.js' %}"></script>
+{% endblock custom_js %}

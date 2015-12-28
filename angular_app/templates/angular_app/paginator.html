@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block custom_css %}
+{#    <link href="{% static 'jquery-ui/themes/base/jquery-ui.min.css' %}" rel="stylesheet">#}
+{#    <link href="{% static 'angular_app/test_app.css' %}" rel="stylesheet">#}
+{% endblock custom_css %}
+
+{% block content %}
+    <div class="container" ng-app="myApp" ng-controller="MainCtrl">
+        <input type="text" ng-model="query">
+        <ul>
+            <li ng-repeat="item in searchPaginator.currentPageItems">
+                {$ item $}
+            </li>
+        </ul>
+    <a href=""
+       ng-click="searchPaginator.previous()"
+       ng-show="searchPaginator.hasPrevious()">&lt;&lt; Prev</a>
+    <a href=""
+       ng-click="searchPaginator.next()"
+       ng-show="searchPaginator.hasNext()">Next &gt;&gt;</a>
+
+    </div>
+
+{% endblock content %}
+
+
+{% block custom_js %}
+{#    <script src="{% static 'jquery-ui/jquery-ui.min.js' %}"></script>#}
+    <script src="{% static 'angular_app/paginator_service.js' %}"></script>
+    <script src="{% static 'angular_app/paginator.js' %}"></script>
+{% endblock custom_js %}

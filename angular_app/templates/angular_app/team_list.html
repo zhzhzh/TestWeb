@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block custom_css %}
+{#    <link href="{% static 'angular_app/team_list.css' %}" rel="stylesheet">#}
+{% endblock custom_css %}
+
+{% block content %}
+    <div class="container" ng-app="myApp">
+        <div class="row col-md-12" ng-controller="FilterCtrl">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-md-2" for="searchTextBox">Search:</label>
+                    <div class="col-md-4">
+                        <input class="form-control" type="text" id="searchTextBox" ng-model="filterService.searchText">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2" for="sportComboBox" class="control-label">Sport:</label>
+                    <div class="col-md-4">
+                        <select class="form-control" id="sportComboBox" ng-model="filterService.activeFilters.sport">
+                            <option ng-repeat="sport in ['Basketball', 'Hockey', 'Football']">{$ sport $}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2" for="cityComboBox" class="control-label">City:</label>
+                    <div class="col-md-4">
+                        <select class="form-control" id="cityComboBox" ng-model="filterService.activeFilters.city">
+                            <option ng-repeat="city in ['Dallas', 'Los Angeles', 'Boston', 'New York']">{$ city $}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2" class="control-label">Featured:</label>
+                    <div class="col-md-4">
+                        <input type="checkbox" ng-model="filterService.activeFilters.featured" ng-false-value=""/>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="row col-md-12" ng-controller="ListCtrl">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Sport</th>
+                    <th>City</th>
+                    <th>Featured</th>
+                </tr>
+                </thead>
+                <tbody id="teamListTable">
+                <tr ng-repeat="team in teamsList | filter:filterService.activeFilters | filter:filterService.searchText">
+                    <td>{$ team.name $}</td>
+                    <td>{$ team.sport $}</td>
+                    <td>{$ team.city $}</td>
+                    <td>{$ team.featured $}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+{% endblock content %}
+
+
+{% block custom_js %}
+    <script src="{% static 'angular_app/myapp_services.js' %}"></script>
+    <script src="{% static 'angular_app/team_list.js' %}"></script>
+{% endblock custom_js %}
