@@ -19,5 +19,5 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^angular/', include('angular.urls', namespace='angular')),
+    url(r'^angular/', include('angular_app.urls', namespace='angular_app')),
 ]
