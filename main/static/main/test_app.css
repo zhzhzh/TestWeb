@@ -13,3 +13,7 @@
 .expander > .body {
     padding: .1em .3em;
 }
+
+.closed {
+    display: none;
+}
