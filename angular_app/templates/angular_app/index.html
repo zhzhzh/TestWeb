@@ -25,6 +25,18 @@
             {$ myText $} - {$ currentDate $}
         </div>
 
+        <div ng-controller="ParentCtrl">
+
+            <div ng-controller="SelfCtrl">
+
+                <a class="btn" ng-click="click()">click me</a>
+                <div ng-controller="ChildCtrl"></div>
+
+            </div>
+
+            <div ng-controller="BroCtrl"></div>
+        </div>
+
     </div>
 
 {% endblock content %}

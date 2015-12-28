@@ -182,3 +182,51 @@ app.controller('MainCtrl', function($scope) {
         $scope.myText = 'Selected';
     }
 });
+
+//app.controller('ParentCtrl', function($scope) {
+//    $scope.$on('to-child', function(e, d) {
+//        console.log('关我毛事');
+//    });
+//});
+//
+//app.controller('SelfCtrl', function($scope) {
+//  $scope.click = function () {
+//    $scope.$broadcast('to-child', 'haha');
+//    $scope.$emit('to-parent', 'hehe');
+//  }
+//});
+//
+//app.controller('ChildCtrl', function($scope){
+//  $scope.$on('to-child', function(e, d) {
+//    console.log('I\' the child, I got it', d);
+//  });
+//});
+//
+//app.controller('BroCtrl', function($scope){
+//  $scope.$on('to-child', function(e, d) {
+//    console.log('关我毛事');
+//  });
+//});
+
+app.controller('ParentCtrl', function($scope) {
+ $scope.$on('to-parent', function(e, d) {
+    console.log('we are the parent, I got it', d);
+ });
+})
+.controller('SelfCtrl', function($scope) {
+  $scope.click = function () {
+    $scope.$broadcast('to-child', 'haha');
+    $scope.$emit('to-parent', 'hehe');
+  }
+})
+.controller('ChildCtrl', function($scope){
+  $scope.$on('to-parent', function(e, d) {
+   console.log('关我毛事');
+  });
+})
+.controller('BroCtrl', function($scope){
+  $scope.$on('to-parent', function(e, d) {
+    console.log('关我毛事');
+  });
+})
+;
