@@ -1,12 +1,23 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 
-{% block custom_css %}{% endblock custom_css %}
+{% block custom_css %}
+    <link href="{% static 'main/test_app.css' %}" rel="stylesheet">
+{% endblock custom_css %}
 
 {% block content %}
-<h2>Test</h2>
+    <div class="container" ng-app="TestApp" ng-controller="TestCtrl">
+{#        <h3>{$ title $}</h3>#}
+        <div hello>Bob</div>
+        <expander class="expander" expander-title="title">
+            {$ text $}
+        </expander>
+
+    </div>
 
 {% endblock content %}
 
 
-{% block custom_js %}{% endblock custom_js %}
+{% block custom_js %}
+    <script src="{% static 'main/test_app.js' %}"></script>
+{% endblock custom_js %}
