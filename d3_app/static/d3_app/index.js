@@ -204,6 +204,9 @@ app.controller('MainCtrl', function ($scope) {
         width = $('#main_chart').width() - margin.left - margin.right,
         height = 900 - margin.top - margin.bottom;
 
+    var lowopacity = 0.3;
+    var highopacity = 0.7;
+
 //(1)数字格式化函数
     var formatNumber = d3.format(",.0f"),//将数字转化为字符串(小数四舍五入)，逗号可以允许使用千分位来分隔,例如：1391.989->1,392
     //下面只是为提示条的数字格式化
@@ -247,6 +250,15 @@ app.controller('MainCtrl', function ($scope) {
         .style("stroke", function(d) {
             return color(d.source.name.replace(/ .*/, ""));
         })
+        .on("mouseover", function(d) {
+			svg.selectAll(".link").filter(function(l) {
+				return l.source == d || l.target == d;
+			}).transition().style('stroke-opacity', highopacity);
+		}).on("mouseout", function(d) {
+			svg.selectAll(".link").filter(function(l) {
+				return l.source == d || l.target == d;
+			}).transition().style('stroke-opacity', lowopacity);
+		})
         .sort(function (a, b) {
             return b.dy - a.dy;
         }); //这句去掉效果一样不知为啥？
@@ -285,6 +297,22 @@ app.controller('MainCtrl', function ($scope) {
         .style("stroke", function (d) {
             return d3.rgb(d.color).darker(2);
         })//较深
+        .on("mouseover", function(d) {
+			svg.selectAll(".link").filter(function(l) {
+				return l.source == d || l.target == d;
+			}).transition().style('stroke-opacity', highopacity);
+		}).on("mouseout", function(d) {
+			svg.selectAll(".link").filter(function(l) {
+				return l.source == d || l.target == d;
+			}).transition().style('stroke-opacity', lowopacity);
+		}).on("dblclick", function(d) {
+			svg.selectAll(".link").filter(function(l) {
+				return l.target == d;
+			}).attr("display", function() {
+				if (d3.select(this).attr("display") == "none") return "inline"
+				else return "none"
+			});
+		})
         .append("title")
         .text(function (d) {
             return d.name + "\n" + formatNumber(d.value);
