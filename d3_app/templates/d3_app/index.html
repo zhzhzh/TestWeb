@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block custom_css %}
+    <link href="{% static 'd3_app/index.css' %}" rel="stylesheet">
+
+{% endblock custom_css %}
+
+{% block content %}
+    <div class="container" ng-app="myApp" ng-controller="MainCtrl" id='main_chart'>
+
+    <svg id="chart"></svg>
+
+
+    </div>
+
+{% endblock content %}
+
+
+{% block custom_js %}
+    <script src="{% static 'd3/d3.min.js' %}"></script>
+    <script src="{% static 'd3-plugins/sankey/sankey.js' %}"></script>
+    <script src="{% static 'd3_app/index.js' %}"></script>
+
+{% endblock custom_js %}

@@ -20,4 +20,5 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^angular/', include('angular_app.urls', namespace='angular_app')),
+    url(r'^d3/', include('d3_app.urls', namespace='d3_app')),
 ]
