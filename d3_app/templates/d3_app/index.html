@@ -7,10 +7,12 @@
 {% endblock custom_css %}
 
 {% block content %}
-    <div class="container-fluid" ng-app="myApp" ng-controller="MainCtrl" id='main_chart'>
-
-    <svg id="chart"></svg>
-
+    <div class="container-fluid" ng-app="myApp" ng-controller="MainCtrl">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10" id='main_chart'>
+            <svg id="chart"></svg>
+        </div>
+    </div>
 
     </div>
 

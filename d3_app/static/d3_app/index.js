@@ -233,7 +233,7 @@ app.controller('MainCtrl', function ($scope) {
     sankey
         .nodes(data.nodes)
         .links(data.links)
-        .layout(32);//布局均匀化，数值大中间的块就会向下移动，比较均衡
+        .layout(200);//布局均匀化，数值大中间的块就会向下移动，比较均衡
 //(4)sankey设置链接属性
     var link = svg.append("g").selectAll(".link")
         .data(data.links)
@@ -287,7 +287,7 @@ app.controller('MainCtrl', function ($scope) {
         })//较深
         .append("title")
         .text(function (d) {
-            return d.name + "\n" + format(d.value);
+            return d.name + "\n" + formatNumber(d.value);
         });
 //(8)文字
     node.append("text")
@@ -301,6 +301,8 @@ app.controller('MainCtrl', function ($scope) {
         .text(function (d) {
             return d.name;
         })
+        .style("font-weight", function(d) { return d.layer == 0 ? "bold" : ""; })
+        .style("font-style", function(d) {return d.layer == 0 ? "italic": ""})
         .filter(function (d) {
             return d.x < width / 2;
         })//除去在中轴左边的
@@ -314,8 +316,7 @@ app.controller('MainCtrl', function ($scope) {
 			if (i.dy>50){
 				return formatNumber(i.value);
 			}
-		}).attr("fill","white");//.attr("stroke","black");
-
+		}).attr("fill","white");//.attr("stroke","black")
 //(9)拖动
     function dragmove(d) {
         d3.select(this).attr("transform", "translate(" + d.x + "," +
