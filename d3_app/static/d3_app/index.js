@@ -202,7 +202,7 @@ app.controller('MainCtrl', function ($scope) {
 
     var margin = {top: 1, right: 1, bottom: 6, left: 1},
         width = $('#main_chart').width() - margin.left - margin.right,
-        height = 600 - margin.top - margin.bottom;
+        height = 900 - margin.top - margin.bottom;
 
 //(1)数字格式化函数
     var formatNumber = d3.format(",.0f"),//将数字转化为字符串(小数四舍五入)，逗号可以允许使用千分位来分隔,例如：1391.989->1,392
@@ -249,12 +249,12 @@ app.controller('MainCtrl', function ($scope) {
         })
         .sort(function (a, b) {
             return b.dy - a.dy;
-        });//这句去掉效果一样不知为啥？
+        }); //这句去掉效果一样不知为啥？
 
 //(5)sankey设置链接提示
     link.append("title")
         .text(function (d) {
-            return d.source.name + " → " + d.target.name + "\n" + format(d.value);
+            return d.source.name + " → " + d.target.name + "\n" + formatNumber(d.value);
         });
 
 //(6)拖动
@@ -306,6 +306,15 @@ app.controller('MainCtrl', function ($scope) {
         })//除去在中轴左边的
         .attr("x", 6 + sankey.nodeWidth())
         .attr("text-anchor", "start");//文字在右边
+
+    node.append("text") //node
+		.attr("x", function(i) {return -i.dy / 2})
+		.attr("y", function(i) {return i.dx / 2 + 6})
+		.attr("transform", "rotate(270)").attr("text-anchor", "middle").text(function(i) {
+			if (i.dy>50){
+				return formatNumber(i.value);
+			}
+		}).attr("fill","white");//.attr("stroke","black");
 
 //(9)拖动
     function dragmove(d) {
